@@ -1,11 +1,19 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
+from accountapp.models import HellowWorld
+
 
 # Create your views here.
 
 def hello_world(reqeust):
     if reqeust.method == 'POST':
-        return render(reqeust, 'accountapp/hello_world.html', context={'text': 'POST METHOD!!'})
+        temp = reqeust.POST.get('hello_world_input')
+
+        new_hello_world = HellowWorld()
+        new_hello_world.text = temp
+        new_hello_world.save()
+
+        return render(reqeust, 'accountapp/hello_world.html', context={'hello_world_output': new_hello_world})
     else:
         return render(reqeust, 'accountapp/hello_world.html', context={'text': 'GET METHOD!!'})
