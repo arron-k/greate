@@ -1,5 +1,6 @@
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 
 from accountapp.models import HellowWorld
 
@@ -14,6 +15,7 @@ def hello_world(reqeust):
         new_hello_world.text = temp
         new_hello_world.save()
 
-        return render(reqeust, 'accountapp/hello_world.html', context={'hello_world_output': new_hello_world})
+        return HttpResponseRedirect(reverse('accountapp:hello_world'))
     else:
-        return render(reqeust, 'accountapp/hello_world.html', context={'text': 'GET METHOD!!'})
+        hello_world_list = HellowWorld.objects.all()
+        return render(reqeust, 'accountapp/hello_world.html', context={'hello_world_list': hello_world_list})
