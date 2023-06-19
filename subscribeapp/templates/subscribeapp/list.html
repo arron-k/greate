@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block contents %}
+
+  <div>
+    {% include 'snippets/list_fragment.html' with article_list=article_list %}
+  </div>
+
+{% endblock %}
